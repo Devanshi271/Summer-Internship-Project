@@ -138,10 +138,7 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
             ]),
           ],
           emailAddress: [
-            {
-              value: this.updateData.emailAddress,
-              disabled: this.isupdateProfile,
-            },
+            this.updateData.emailAddress,
             Validators.compose([Validators.required, Validators.email]),
           ],
           userType: [this.updateData.userType],
@@ -164,36 +161,34 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
         formData.append('profileImage', this.selectedFile);
       }
 
-      const updateUserSubscribe = this._service
-        .updateUser(this.updateForm.value)
-        .subscribe(
-          (data: any) => {
-            if (data.result == 1) {
-              this._toast.success({
-                detail: 'SUCCESS',
-                summary: this.isupdateProfile
-                  ? 'Profile Updated Successfully'
-                  : data.data,
-                duration: APP_CONFIG.toastDuration,
-              });
-              setTimeout(() => {
-                if (this.isupdateProfile) {
-                  this._router.navigate(['admin/profile']);
-                } else {
-                  this._router.navigate(['admin/user']);
-                }
-              }, 1000);
-            } else {
-              this._toastr.error(data.message);
-            }
-          },
-          (err) =>
-            this._toast.error({
-              detail: 'ERROR',
-              summary: err.message,
+      const updateUserSubscribe = this._service.updateUser(formData).subscribe(
+        (data: any) => {
+          if (data.result == 1) {
+            this._toast.success({
+              detail: 'SUCCESS',
+              summary: this.isupdateProfile
+                ? 'Profile Updated Successfully'
+                : data.data,
               duration: APP_CONFIG.toastDuration,
-            })
-        );
+            });
+            setTimeout(() => {
+              if (this.isupdateProfile) {
+                this._router.navigate(['admin/profile']);
+              } else {
+                this._router.navigate(['admin/user']);
+              }
+            }, 1000);
+          } else {
+            this._toastr.error(data.message);
+          }
+        },
+        (err) =>
+          this._toast.error({
+            detail: 'ERROR',
+            summary: err.message,
+            duration: APP_CONFIG.toastDuration,
+          })
+      );
       this.formValid = false;
       this.unsubscribe.push(updateUserSubscribe);
     }

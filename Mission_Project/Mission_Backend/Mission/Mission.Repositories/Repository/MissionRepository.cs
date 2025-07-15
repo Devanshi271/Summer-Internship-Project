@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Mission.Entities;
 using Mission.Entities.Models;
 using Mission.Entities.ViewModels.Mission;
@@ -133,7 +134,7 @@ namespace Mission.Repositories.Repository
             }
         }
 
-        public async Task<(bool result, string messge)> ApplyMission(ApplyMissionRequestModel model)
+        public async Task<(bool result, string message)> ApplyMission(ApplyMissionRequestModel model)
         {
             var mission = _dbContext.Missions.Find(model.MissionId);
 
@@ -141,11 +142,11 @@ namespace Mission.Repositories.Repository
                 return (false, "Not Found");
 
             if (mission.TotalSeats <= 0)
-                return (false, "You can't apply on this mission because seats are already full");
+                return (false, "You can apply on this mission because seats are already full");
 
             var missionApplication = new MissionApplication()
             {
-                MissionId = mission.Id,
+                MissionId = model.MissionId,
                 UserId = model.UserId,
                 AppliedDate = model.AppliedDate.ToUniversalTime(),
             };
@@ -156,10 +157,10 @@ namespace Mission.Repositories.Repository
 
             await _dbContext.SaveChangesAsync();
             return (true, "Mission Applied Successfully");
-        } 
-        
+        }
+
         public async Task<List<MissionApplicationResponseModel>> GetMissionApplicationList()
-        {          
+        {
             return await _dbContext.MissionApplications.Where(m => !m.IsDelete)
                 .Select(m => new MissionApplicationResponseModel()
                 {
@@ -187,7 +188,8 @@ namespace Mission.Repositories.Repository
 
         public async Task<bool> MissionApplicationDelete(MissionApplicationResponseModel model)
         {
-            var missionApplication = _dbContext.MissionApplications.Find(model.Id);
+            var missionApplication = _dbContext.MissionApplications
+                .Include(m => m.Mission).FirstOrDefault(m => m.Id == model.Id);
 
             if (missionApplication == null)
                 return false;

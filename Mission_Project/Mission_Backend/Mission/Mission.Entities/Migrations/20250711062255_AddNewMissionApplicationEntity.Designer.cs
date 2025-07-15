@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Mission.Entities.Migrations
 {
     [DbContext(typeof(MissionDbContext))]
-    [Migration("20250712053647_AddNewMissionApplicationEntity")]
+    [Migration("20250711062255_AddNewMissionApplicationEntity")]
     partial class AddNewMissionApplicationEntity
     {
         /// <inheritdoc />

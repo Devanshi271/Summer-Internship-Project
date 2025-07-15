@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Mission.Entities.ViewModels;
 using Mission.Entities.ViewModels.Mission;
 using Mission.Services.IService;
-using System.Threading.Tasks;
 
 namespace Mission.Api.Controllers
 {
@@ -27,7 +27,7 @@ namespace Mission.Api.Controllers
         {
             var (response, message) = await _missionService.ApplyMission(model);
 
-            var result = new ResponseResult() { Message = message };
+            var result = new ResponseResult() { Message = message};
 
             if (!response)
             {
@@ -41,8 +41,9 @@ namespace Mission.Api.Controllers
                     return BadRequest(result);
                 }
             }
-                result.Result = ResponseStatus.Success;
-                return Ok(result);
+
+            result.Result = ResponseStatus.Success;
+            return Ok(result);
         }
     }
 }

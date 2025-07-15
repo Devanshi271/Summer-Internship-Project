@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mission.Entities.ViewModels;
 using Mission.Entities.ViewModels.Mission;
@@ -57,7 +58,7 @@ namespace Mission.Api.Controllers
 
         [HttpGet]
         [Route("MissionApplicationList")]
-        public async Task<IActionResult> MissionApplicationList()
+        public async Task<IActionResult> GetMissionApplicationList()
         {
             var response = await _missionService.GetMissionApplicationList();
             return Ok(new ResponseResult() { Data = response, Result = ResponseStatus.Success, Message = "" });
@@ -71,7 +72,7 @@ namespace Mission.Api.Controllers
 
             if (!response)
             {
-                return NotFound(new ResponseResult() { Result = ResponseStatus.Error, Message = "Mission Application Not Found " });
+                return NotFound(new ResponseResult() { Result = ResponseStatus.Error, Message = "Mission Application Not Found" });
             }
             return Ok(new ResponseResult() { Data = response, Result = ResponseStatus.Success, Message = "" });
         }
@@ -84,7 +85,7 @@ namespace Mission.Api.Controllers
 
             if (!response)
             {
-                return NotFound(new ResponseResult() { Result = ResponseStatus.Error, Message = "Mission Application Not Found " });
+                return NotFound(new ResponseResult() { Result = ResponseStatus.Error, Message = "Mission Application Not Found" });
             }
             return Ok(new ResponseResult() { Data = response, Result = ResponseStatus.Success, Message = "" });
         }

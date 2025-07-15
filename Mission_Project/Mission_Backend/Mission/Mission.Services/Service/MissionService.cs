@@ -40,7 +40,7 @@ namespace Mission.Services.Service
             return await _missionRepository.DeleteMission(missionId);
         }
 
-        public async Task<(bool result, string messge)> ApplyMission(ApplyMissionRequestModel model)
+        public async Task<(bool result, string message)> ApplyMission(ApplyMissionRequestModel model)
         {
             return await _missionRepository.ApplyMission(model);
         }
@@ -52,7 +52,7 @@ namespace Mission.Services.Service
 
         public async Task<bool> MissionApplicationApprove(MissionApplicationResponseModel model)
         {
-            return await _missionRepository.MissionApplicationApprove(model); 
+            return await _missionRepository.MissionApplicationApprove(model);
         }
 
         public async Task<bool> MissionApplicationDelete(MissionApplicationResponseModel model)

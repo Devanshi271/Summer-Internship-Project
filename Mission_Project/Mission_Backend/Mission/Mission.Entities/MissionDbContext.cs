@@ -36,7 +36,7 @@ namespace Mission.Entities
             modelBuilder.Entity<Country>().HasData(new Country() { Id = 2, CountryName = "USA" });
             modelBuilder.Entity<Country>().HasData(new Country() { Id = 3, CountryName = "UK" });
             modelBuilder.Entity<Country>().HasData(new Country() { Id = 4, CountryName = "Russia" });
-
+            
             modelBuilder.Entity<City>().HasData(new City() { Id = 1, CountryId = 1, CityName = "Ahmedabad" });
             modelBuilder.Entity<City>().HasData(new City() { Id = 2, CountryId = 1, CityName = "Rajkot" });
             modelBuilder.Entity<City>().HasData(new City() { Id = 3, CountryId = 1, CityName = "Surat" });
@@ -49,7 +49,7 @@ namespace Mission.Entities
             modelBuilder.Entity<City>().HasData(new City() { Id = 10, CountryId = 3, CityName = "Birmingham" });
             modelBuilder.Entity<City>().HasData(new City() { Id = 11, CountryId = 4, CityName = "Moscow" });
             modelBuilder.Entity<City>().HasData(new City() { Id = 12, CountryId = 4, CityName = "Saint Petersburg" });
-            modelBuilder.Entity<City>().HasData(new City() { Id = 13, CountryId = 4, CityName = "Yekaterinburg" });
+            modelBuilder.Entity<City>().HasData(new City() { Id = 13, CountryId = 4, CityName = "Yekaterinburg" });            
 
             base.OnModelCreating(modelBuilder);
         }

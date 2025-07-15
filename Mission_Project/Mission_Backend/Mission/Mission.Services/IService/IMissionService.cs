@@ -15,7 +15,7 @@ namespace Mission.Services.IService
         Task<bool> DeleteMission(int missionId);
         Task<List<ClientMissionResponseModel>> GetClientSideMissionList(int userId);
 
-        Task<(bool result, string messge)> ApplyMission(ApplyMissionRequestModel model);
+        Task<(bool result, string message)> ApplyMission(ApplyMissionRequestModel model);
 
         Task<List<MissionApplicationResponseModel>> GetMissionApplicationList();
 
